@@ -1,0 +1,44 @@
+<?php 
+
+/* Implements the shortcode [me_display_multilingual_search_form] to display a search form
+on multilingual websites using the Polylang plugin. */
+
+function me_shortcode_display_multilingual_search_form() {
+    
+    /* default language */
+    $language = 'de';
+    $language_slug = ''; /* leave empty for default language */
+    $placeholder = 'Suchbegriff eingeben…';
+    $button_label = 'Suchen';
+
+    /* translations */
+    if ( pll_current_language( 'slug' ) == 'en' ) {
+        $language = 'en';
+        $language_slug = 'en';
+        $placeholder = 'Enter search term…';
+        $button_label = 'Search';
+    }        
+    if ( pll_current_language( 'slug' ) == 'fr' ) {
+        $language = 'fr';
+        $language_slug = 'fr';
+        $placeholder = 'Entrer le terme de recherche…';
+        $button_label = 'Chercher';
+    }
+    
+    /* compose url */
+    if ( $language_slug == '' ) {
+        $search_page = '';
+    } else {
+        $search_page = $language_slug . '/';
+    }
+    
+    /* create form */
+	$search_form = '<form method="get" class="me_multilingual_search_form me_language_' . $language . '" action="'. esc_url(home_url( '/' . $search_page )) .'">
+		<input type="text" name="s" id="s" placeholder="' . $placeholder . '">
+		<input type="submit" value="' .  $button_label . '">
+	</form>';
+
+	return $search_form;
+}
+
+add_shortcode('me_display_multilingual_search_form', 'me_shortcode_display_multilingual_search_form');
