@@ -26,9 +26,7 @@ function me_shortcode_display_multilingual_search_form() {
     }
     
     /* compose url */
-    if ( $language_slug == '' ) {
-        $search_page = '';
-    } else {
+    if ( $language_slug !== '' ) {
         $search_page = $language_slug . '/';
     }
     
